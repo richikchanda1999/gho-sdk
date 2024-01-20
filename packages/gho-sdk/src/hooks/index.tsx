@@ -1,5 +1,5 @@
 import { useAccount, useChainId, useReadContract } from 'wagmi';
-import { abi as GhoTokenABI } from '../utils/abis/GhoToken';
+import GhoTokenABI from '../utils/abis/GhoToken';
 import addresses from '../utils/addresses';
 
 export function useGHOBalance() {
