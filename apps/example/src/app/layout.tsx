@@ -19,7 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}><ClientOnlyProvider><MyGhoProvider>{children}</MyGhoProvider></ClientOnlyProvider></body>
+      <body className={inter.className}>
+        <ClientOnlyProvider>
+          <MyGhoProvider>{children}</MyGhoProvider>
+        </ClientOnlyProvider>
+      </body>
     </html>
   );
 }

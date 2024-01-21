@@ -11,10 +11,10 @@ const config = createConfig({
   multiInjectedProviderDiscovery: true,
   transports: {
     [mainnet.id]: http(
-      `https://mainnet.infura.io/v3/${process.env.INFURA_KEY!}`
+      `https://mainnet.infura.io/v3/${process.env.INFURA_KEY!}`,
     ),
     [sepolia.id]: http(
-      `https://sepolia.infura.io/v3/${process.env.INFURA_KEY!}`
+      `https://sepolia.infura.io/v3/${process.env.INFURA_KEY!}`,
     ),
   },
   connectors: [injected()],
