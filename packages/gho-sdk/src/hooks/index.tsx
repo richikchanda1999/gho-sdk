@@ -4,3 +4,4 @@ export * from "./useGHOTotalSupply";
 export * from "./useGHOTransfer";
 export * from "./useGHOTransferFrom";
 export * from "./useGHOAllowance";
+export * from "./useGHORepay";

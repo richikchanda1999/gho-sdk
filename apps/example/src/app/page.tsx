@@ -1,32 +1,16 @@
 "use client";
-/* global BigInt */
-import { useAccount, useChainId, useReadContract } from "wagmi";
-import React, { useEffect, useState } from "react";
-import {
-  useGHOBalance,
-  useGHOTotalSupply,
-  useGHOTransfer,
-  useGHOTransferFrom,
-  useGHOAllowance,
-  useFacilitatorAddressList,
-} from "@repo/gho-sdk";
-import { sepolia } from "wagmi/chains";
+
+import { useAccount, useChainId } from "wagmi";
+import React from "react";
+import { useGHOBalance } from "@repo/gho-sdk";
+import { CHAIN_IDs } from "@repo/gho-sdk/src/utils/types";
+import { formatEther } from "viem";
+
 export default function Home() {
   const { address, isConnected } = useAccount();
   const chain = useChainId();
-  //const transferGHO  = useGHOTransfer();
-  const result = useGHOBalance();
-  const ghoTokenTotalSupply = useGHOTotalSupply({ chainId: sepolia.id });
-  //const transferGHOfrom = useGHOTransferFrom();
-  //const getAllowance = useGHOAllowance();
-  const [to, setTo] = useState<`0x{string}` | null>(null);
-  const [allowance, setAllowance] = useState<string>("");
-  const facilitatorAddressList = useFacilitatorAddressList({
-    chainId: sepolia.id,
-  });
-  // useEffect(() => {
-  //   console.log({facilitatorAddressList})
-  // }, [result,ghoTokenTotalSupply,transferGHO])
+
+  const { data } = useGHOBalance({ address, chainId: chain as CHAIN_IDs });
 
   const clickTransferFrom = () => {
     let addressfrom = (document.getElementById(
@@ -56,8 +40,8 @@ export default function Home() {
       <h1>Connected: {isConnected}</h1>
       <h1>Address: {address}</h1>
       <h1>Chain: {chain}</h1>
-      <h1>Balance: {result}</h1>
-      <h1>GHO Total Supply: {ghoTokenTotalSupply}</h1>
+      {/* <h1>Balance: {result}</h1>
+      <h1>GHO Total Supply: {ghoTokenTotalSupply}</h1> */}
       <input
         placeholder="Address"
         className="border-black border-2"
@@ -139,11 +123,14 @@ export default function Home() {
       >
         Approve Expenditure
       </button>
-      <h1>Allowance:{allowance}</h1>
+      {/* <h1>Allowance:{allowance}</h1>
       <h1>Facilitator List</h1>
       {facilitatorAddressList != ""
         ? facilitatorAddressList.map((el) => <h1 key={el as string}>{el}</h1>)
-        : ""}
+        : ""} */}
+      {data !== undefined && (
+        <h1>Balance: {formatEther(data as bigint)} GHO</h1>
+      )}
     </div>
   );
 }

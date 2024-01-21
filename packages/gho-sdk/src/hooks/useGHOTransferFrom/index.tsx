@@ -22,7 +22,7 @@ export function useGHOTransferFrom({
     const result = await writeContractAsync({
       abi: GhoTokenABI,
       address: addresses[chainId as number].GhoToken,
-      functionName: "transfer",
+      functionName: "transferFrom",
       args: [sender, recipient, amount],
     });
     return result;
