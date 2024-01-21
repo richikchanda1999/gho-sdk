@@ -39,7 +39,7 @@ import {
       const result = await writeContractAsync({
         abi: AavePoolABI,
         address: addresses[chainId ?? chain as number].GhoToken,
-        functionName: "",
+        functionName: "withdraw",
         args: [asset, amount, 2, onBehalfof],
       });
   
