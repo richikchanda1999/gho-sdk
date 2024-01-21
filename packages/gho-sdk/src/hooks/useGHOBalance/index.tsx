@@ -1,14 +1,13 @@
-import { useAccount, useChainId, useReadContract } from "wagmi";
+import { useChainId, useReadContract } from "wagmi";
 import GhoTokenABI from "../../utils/abis/GhoToken";
 import addresses from "../../utils/addresses";
 import { CHAIN_IDs } from "../../utils/types";
-import { ReadContractReturnType } from "viem";
 
 export type UseGHOBalanceInput = {
-  address: `0x${string}`;
+  address: `0x${string}` | undefined;
   chainId?: CHAIN_IDs;
 };
-export type UseGHOBalanceOutput = ReadContractReturnType;
+export type UseGHOBalanceOutput = ReturnType<typeof useReadContract>;
 
 export function useGHOBalance({
   address,

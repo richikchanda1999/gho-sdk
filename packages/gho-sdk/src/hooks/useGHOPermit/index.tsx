@@ -9,10 +9,10 @@ import { useCallback } from "react";
 import { CHAIN_IDs } from "../../utils/types";
 
 export type useGHOPermitInput = {
-  owner: `0x${string}`;
-  spender: `0x${string}`;
-  amount: BigInt;
-  deadline: BigInt;
+  owner: `0x${string}` | undefined;
+  spender: `0x${string}` | undefined;
+  amount: bigint;
+  deadline: bigint;
   chainId: CHAIN_IDs;
   r: string;
   s: string;
