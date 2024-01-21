@@ -9,7 +9,7 @@ export type UseGHOBalanceInput = {
 };
 export type UseGHOBalanceOutput = ReturnType<typeof useReadContract>;
 
-export function useGHOBalance({
+export default function useGHOBalance({
   address,
   chainId,
 }: UseGHOBalanceInput): UseGHOBalanceOutput {

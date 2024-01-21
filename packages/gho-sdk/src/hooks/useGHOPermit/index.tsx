@@ -25,7 +25,7 @@ export type UseGHOPermitOutput = Omit<
   approve: () => ReturnType<UseWriteContractReturnType["writeContractAsync"]>;
 };
 
-export function useGHOPermit({
+export default function useGHOPermit({
   owner,
   spender,
   amount,
