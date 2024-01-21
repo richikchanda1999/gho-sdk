@@ -1,23 +1,29 @@
-import GhoTokenABI from '../../utils/abis/GhoToken';
-import addresses from '../../utils/addresses';
-import { useChainId, useWriteContract } from 'wagmi';
-import { Address } from 'viem';
+import GhoTokenABI from "../../utils/abis/GhoToken";
+import addresses from "../../utils/addresses";
+import { useChainId, useWriteContract } from "wagmi";
+import { Address } from "viem";
+import { useCallback } from "react";
+import { CHAIN_IDs } from "../../utils/types/chainId";
 
-export function useGHOTransfer() {
-    
-    const chain = useChainId();
-    const { writeContract } = useWriteContract()
-    const transfer=(to: Address,amount:bigint) => {
-    
-      writeContract({ 
-        abi: GhoTokenABI,
-        address: addresses[chain as number].GhoToken,
-        functionName: 'transfer',
-        args: [
-          to,
-          amount,
-        ],
-     });
-    }
-    return transfer;
-  }
+export type UseGHOApproveInput = {
+  spender: `0x${string}`;
+  amount: BigInt;
+  chainId: CHAIN_IDs;
+};
+export function useGHOTransfer({
+  spender,
+  amount,
+  chainId,
+}: UseGHOApproveInput) {
+  const { writeContractAsync } = useWriteContract();
+  const transfer = useCallback(async () => {
+    const result = await writeContractAsync({
+      abi: GhoTokenABI,
+      address: addresses[chainId as number].GhoToken,
+      functionName: "transfer",
+      args: [spender, amount],
+    });
+    return result;
+  }, [spender, amount]);
+  return transfer;
+}

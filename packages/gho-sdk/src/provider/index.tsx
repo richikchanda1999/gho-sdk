@@ -1,6 +1,6 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { PropsWithChildren } from 'react';
-import { WagmiProvider, WagmiProviderProps } from 'wagmi';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { PropsWithChildren } from "react";
+import { WagmiProvider, WagmiProviderProps } from "wagmi";
 
 export type GhoProviderProps = WagmiProviderProps;
 
