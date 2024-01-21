@@ -20,7 +20,7 @@ export default function useGHOBorrow({
   onBehalfOf,
   chainId,
 }: UseGHOBorrowInput) {
-  const { writeContract, writeContractAsync, ...props } = useWriteContract();
+  const { writeContractAsync, ...props } = useWriteContract();
 
   const chain = useChainId();
 
@@ -39,7 +39,7 @@ export default function useGHOBorrow({
     });
 
     return result;
-  }, [writeContract, amount, interestRateMode, referralCode, onBehalfOf]);
+  }, [writeContractAsync, amount, interestRateMode, referralCode, onBehalfOf]);
 
   return { borrowGHO, ...props };
 }

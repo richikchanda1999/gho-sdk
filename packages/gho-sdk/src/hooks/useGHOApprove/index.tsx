@@ -1,4 +1,4 @@
-import { UseWriteContractReturnType, useAccount, useChainId, useReadContract, useWriteContract } from 'wagmi';
+import { UseWriteContractReturnType, useWriteContract } from 'wagmi';
 import GhoTokenABI from '../../utils/abis/GhoToken';
 import addresses from '../../utils/addresses';
 import { useCallback } from 'react';
@@ -8,7 +8,7 @@ export type UseGHOApproveInput = { spender: `0x${string}`, amount: bigint, chain
 export type UseGHOApproveOutput = Omit<UseWriteContractReturnType, 'writeContract' | 'writeContractAsync'> & { approveGHO: () => ReturnType<UseWriteContractReturnType['writeContractAsync']> }
 
 export default function useGHOApprove({ spender, amount, chainId }: UseGHOApproveInput): UseGHOApproveOutput {
-  const { writeContract, writeContractAsync, ...props } = useWriteContract()
+  const { writeContractAsync, ...props } = useWriteContract()
 
   const approveGHO = useCallback(async () => {
     const result = await writeContractAsync({
@@ -19,7 +19,7 @@ export default function useGHOApprove({ spender, amount, chainId }: UseGHOApprov
     })
 
     return result
-  }, [writeContract, spender, amount])
+  }, [writeContractAsync, spender, amount])
 
   return { approveGHO, ...props }
 }

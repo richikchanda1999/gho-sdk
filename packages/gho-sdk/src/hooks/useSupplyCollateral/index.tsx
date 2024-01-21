@@ -22,14 +22,14 @@ export type UseSupplyCollateralOutput = Omit<
 
 export default function useSupplyCollateral(inputs: UseSupplyCollateralInput) {
   const { asset, referralCode, onBehalfOf, chainId } = inputs;
-  const { writeContract, writeContractAsync, ...props } = useWriteContract();
+  const { writeContractAsync, ...props } = useWriteContract();
 
   const chain = useChainId();
 
   const supplyCollateral = useCallback(async () => {
     const result = await writeContractAsync({
       abi: AavePool,
-      address: addresses[chainId ?? (chain as number)].AavePool,
+      address: asset === 'eth' ? addresses[chainId ?? (chain as number)].WrappedTokenGateway : addresses[chainId ?? (chain as number)].AavePool,
       functionName: asset === "eth" ? "depositETH" : "supply",
       args:
         asset === "eth"
@@ -43,7 +43,7 @@ export default function useSupplyCollateral(inputs: UseSupplyCollateralInput) {
     });
 
     return result;
-  }, [writeContract, referralCode, onBehalfOf]);
+  }, [writeContractAsync, asset, referralCode, onBehalfOf, chainId, chain]);
 
   return { supplyCollateral, ...props };
 }

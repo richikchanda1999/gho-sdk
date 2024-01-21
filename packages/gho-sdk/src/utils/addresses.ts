@@ -47,7 +47,7 @@ const addresses: Record<number, Record<string, `0x${string}`>> = {
         PoolAddressProvider: "0x012bAC54348C0E635dCAc9D5FB99f06F24136C9A",
         WalletBalanceProvider: "0xCD4e0d6D2b1252E2A709B8aE97DBA31164C5a709",
         AaveOracle: "0x2da88497588bf89281816106C7259e31AF45a663",
-        WrappedTokenGatewayV3: "0x387d311e47e80b498169e6fb51d3193167d89F7D"
+        WrappedTokenGateway: "0x387d311e47e80b498169e6fb51d3193167d89F7D"
     }
 }
 

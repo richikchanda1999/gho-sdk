@@ -35,20 +35,31 @@ export default function useGHOPermit({
   v,
   chainId,
 }: useGHOPermitInput): UseGHOPermitOutput {
-  const { writeContract, writeContractAsync, ...props } = useWriteContract();
+  const { writeContractAsync, ...props } = useWriteContract();
 
   const chain = useChainId();
 
   const approve = useCallback(async () => {
     const result = await writeContractAsync({
       abi: GhoTokenABI,
-      address: addresses[chainId ?? chain as number].GhoToken,
+      address: addresses[chainId ?? (chain as number)].GhoToken,
       functionName: "permit",
       args: [owner, spender, amount, deadline, v, r, s],
     });
 
     return result;
-  }, [writeContract, spender, amount]);
+  }, [
+    spender,
+    amount,
+    chainId,
+    chain,
+    owner,
+    deadline,
+    r,
+    s,
+    v,
+    writeContractAsync,
+  ]);
 
   return { approve, ...props };
 }
