@@ -5,3 +5,9 @@ export * from "./useGHOTransfer";
 export * from "./useGHOTransferFrom";
 export * from "./useGHOAllowance";
 export * from "./useGHORepay";
+export * from './useGHOBorrow'
+export * from './useGHOMint'
+export * from './useGHOApprove'
+export * from './useGHOBurn'
+export * from './useGHOPermit'
+export * from './useSupplyCollateral'

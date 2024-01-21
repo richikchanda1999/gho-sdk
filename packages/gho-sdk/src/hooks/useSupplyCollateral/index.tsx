@@ -1,49 +1,49 @@
-import {
-    UseWriteContractReturnType,
-    useChainId,
-    useWriteContract,
-  } from "wagmi";
-  import AavePoolABI from "../../utils/abis/AavePool";
-  import addresses from "../../utils/addresses";
-  import { useCallback } from "react";
-  import { Address } from "viem";
-  import { CHAIN_IDs } from "../../utils/types";
-  
-  export type useGHORepayInput = {
-    asset: `0x${string}` | undefined;
-    amount: bigint;
-    chainId: CHAIN_IDs;
-    onBehalfof: Address
-  };
-  export type UseGHORepayOutput = Omit<
-    UseWriteContractReturnType,
-    "writeContract" | "writeContractAsync"
-  > & {
-    approve: () => ReturnType<UseWriteContractReturnType["writeContractAsync"]>;
-  };
-  
-  export function useGHORepay({
-    asset,
-    amount,
-    chainId,
-    onBehalfof
+import { useChainId, useWriteContract } from "wagmi";
+import AavePool from "../../utils/abis/AavePool";
+import addresses from "../../utils/addresses";
+import { CHAIN_IDs } from "../../utils/types";
+import { useCallback } from "react";
 
-  }: useGHORepayInput): UseGHORepayOutput {
-    const { writeContract, writeContractAsync, ...props } = useWriteContract();
-  
-    const chain = useChainId();
-  
-    const approve = useCallback(async () => {
-      const result = await writeContractAsync({
-        abi: AavePoolABI,
-        address: addresses[chainId ?? chain as number].GhoToken,
-        functionName: "permit",
-        args: [asset, amount, 2, onBehalfof],
-      });
-  
-      return result;
-    }, [writeContract, asset, amount, onBehalfof]);
-  
-    return { approve, ...props };
-  }
-  
+export type UseSupplyCollateralInput = {
+  asset: "eth" | `0x${string}`;
+  amount: bigint;
+  referralCode: bigint;
+  onBehalfOf: `0x${string}`;
+  chainId?: CHAIN_IDs;
+};
+export type UseSupplyCollateralOutput = Omit<
+  ReturnType<typeof useWriteContract>,
+  "writeContract" | "writeContractAsync"
+> & {
+  supplyCollateral: () => ReturnType<
+    ReturnType<typeof useWriteContract>["writeContractAsync"]
+  >;
+};
+
+export default function useSupplyCollateral(inputs: UseSupplyCollateralInput) {
+  const { asset, referralCode, onBehalfOf, chainId } = inputs;
+  const { writeContractAsync, ...props } = useWriteContract();
+
+  const chain = useChainId();
+
+  const supplyCollateral = useCallback(async () => {
+    const result = await writeContractAsync({
+      abi: AavePool,
+      address: asset === 'eth' ? addresses[chainId ?? (chain as number)].WrappedTokenGateway : addresses[chainId ?? (chain as number)].AavePool,
+      functionName: asset === "eth" ? "depositETH" : "supply",
+      args:
+        asset === "eth"
+          ? [
+              addresses[chainId ?? (chain as number)].AavePool,
+              onBehalfOf,
+              referralCode,
+            ]
+          : [asset, inputs.amount, onBehalfOf, referralCode],
+      value: asset === "eth" ? inputs.amount : undefined,
+    });
+
+    return result;
+  }, [writeContractAsync, asset, referralCode, onBehalfOf, chainId, chain]);
+
+  return { supplyCollateral, ...props };
+}

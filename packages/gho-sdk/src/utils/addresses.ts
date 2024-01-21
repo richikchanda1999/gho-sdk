@@ -19,7 +19,8 @@ const addresses: Record<number, Record<string, `0x${string}`>> = {
         Incentives: "0x8164Cc65827dcFe994AB23944CBC90e0aa80bFcb",
         PoolAddressProvider: "0x2f39d218133AFaB8F2B819B1066c7E434Ad94E9e",
         WalletBalanceProvider: "0xC7be5307ba715ce89b152f3Df0658295b3dbA8E2",
-        AaveOracle: "0x54586bE62E3c3580375aE3723C145253060Ca0C2"
+        AaveOracle: "0x54586bE62E3c3580375aE3723C145253060Ca0C2",
+        WrappedTokenGateway: "0x893411580e590D62dDBca8a703d61Cc4A8c7b2b9"
     },
     11155111: {
         // GHO Contracts
@@ -40,12 +41,13 @@ const addresses: Record<number, Record<string, `0x${string}`>> = {
         GhoVariableDebtTokenProxy: "0x67ae46EF043F7A4508BD1d6B94DB6c33F0915844",
         // AAVE Contracts
         ACLManager: "0x7F2bE3b178deeFF716CD6Ff03Ef79A1dFf360ddD",
-        Pool: "0x0562453c3DAFBB5e625483af58f4E6D668c44e19",
-        PoolConfigurator: "0x63Dea961A0B2e2dF4F7A4bb61CBc39BF53A6eb32",
-        Incentives: "0xDe7562059fE64B3D088a26a3F8B60e77dCb81ebE",
+        Pool: "0x6Ae43d3271ff6888e7Fc43Fd7321a503ff738951",
+        PoolConfigurator: "0x7Ee60D184C24Ef7AfC1Ec7Be59A0f448A0abd138",
+        Incentives: "0x4DA5c4da71C5a167171cC839487536d86e083483",
         PoolAddressProvider: "0x012bAC54348C0E635dCAc9D5FB99f06F24136C9A",
         WalletBalanceProvider: "0xCD4e0d6D2b1252E2A709B8aE97DBA31164C5a709",
-        AaveOracle: "0x2da88497588bf89281816106C7259e31AF45a663"
+        AaveOracle: "0x2da88497588bf89281816106C7259e31AF45a663",
+        WrappedTokenGateway: "0x387d311e47e80b498169e6fb51d3193167d89F7D"
     }
 }
 

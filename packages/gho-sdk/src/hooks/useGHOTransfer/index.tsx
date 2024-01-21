@@ -5,7 +5,7 @@ import { Address } from "viem";
 import { useCallback } from "react";
 import { CHAIN_IDs } from "../../utils/types/chainId";
 
-export type UseGHOApproveInput = {
+export type UseGHOTransferInput = {
   spender: `0x${string}`;
   amount: BigInt;
   chainId: CHAIN_IDs;
@@ -14,7 +14,7 @@ export function useGHOTransfer({
   spender,
   amount,
   chainId,
-}: UseGHOApproveInput) {
+}: UseGHOTransferInput) {
   const { writeContractAsync } = useWriteContract();
   const transfer = useCallback(async () => {
     const result = await writeContractAsync({
