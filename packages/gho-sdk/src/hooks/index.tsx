@@ -1,7 +1,7 @@
-import { UseReadContractReturnType, useAccount, useChainId, useReadContract } from 'wagmi';
+import { UseReadContractReturnType, useAccount, useChainId, useReadContract, useWriteContract } from 'wagmi';
 import GhoTokenABI from '../utils/abis/GhoToken';
 import addresses from '../utils/addresses';
-
+import { Address } from 'viem';
 
 export function useGHOBalance() {
   const { address } = useAccount()
@@ -20,7 +20,6 @@ export function useGHOBalance() {
 }
 
 export function useGHOTotalSupply() {
-  const { address } = useAccount()
   const chain = useChainId()
   const result: UseReadContractReturnType = useReadContract({
     abi: GhoTokenABI,
@@ -29,4 +28,22 @@ export function useGHOTotalSupply() {
     chainId: chain
   })
   return (result.data !== undefined)? BigInt(result.data as number).toString(): ''
+}
+
+export function useGHOTransfer() {
+  const transfer=(to: Address,amount:bigint) => {
+    const chain = useChainId();
+    const { writeContract } = useWriteContract()
+  
+    writeContract({ 
+      abi: GhoTokenABI,
+      address: addresses[chain as number].GhoToken,
+      functionName: 'transfer',
+      args: [
+        to,
+        amount,
+      ],
+   });
+  }
+  return transfer;
 }
