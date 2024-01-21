@@ -7,7 +7,7 @@ import { CHAIN_IDs } from '../../utils/types';
 export type UseGHOApproveInput = { spender: `0x${string}`, amount: bigint, chainId: CHAIN_IDs }
 export type UseGHOApproveOutput = Omit<UseWriteContractReturnType, 'writeContract' | 'writeContractAsync'> & { approveGHO: () => ReturnType<UseWriteContractReturnType['writeContractAsync']> }
 
-export default function useGHOApprove({ spender, amount, chainId }: UseGHOApproveInput): UseGHOApproveOutput {
+export function useGHOApprove({ spender, amount, chainId }: UseGHOApproveInput): UseGHOApproveOutput {
   const { writeContractAsync, ...props } = useWriteContract()
 
   const approveGHO = useCallback(async () => {

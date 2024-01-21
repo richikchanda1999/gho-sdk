@@ -13,7 +13,7 @@ export type UseGHOBorrowInput = {
 };
 export type UseGHOBorrowOutput = Omit<ReturnType<typeof useWriteContract>, 'writeContract' | 'writeContractAsync'> & { approveGHO: () => ReturnType<ReturnType<typeof useWriteContract>['writeContractAsync']> }
 
-export default function useGHOBorrow({
+export function useGHOBorrow({
   amount,
   interestRateMode,
   referralCode,

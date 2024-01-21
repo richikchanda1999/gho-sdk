@@ -18,7 +18,7 @@ export type UseGHOMintOutput = Omit<
   >;
 };
 
-export default function useGHOMint({account, amount, chainId}: useGHOMintInput) {
+export function useGHOMint({account, amount, chainId}: useGHOMintInput) {
   const { writeContractAsync, ...props } = useWriteContract();
 
   const chain = useChainId();

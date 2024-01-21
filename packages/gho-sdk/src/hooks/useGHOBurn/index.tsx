@@ -18,7 +18,7 @@ export type UseGHOBurnOutput = Omit<
   >;
 };
 
-export default function useGHOBurn({ amount, chainId }: useGHOBurnInput) {
+export function useGHOBurn({ amount, chainId }: useGHOBurnInput) {
   const { writeContractAsync, ...props } = useWriteContract();
 
   const chain = useChainId();
